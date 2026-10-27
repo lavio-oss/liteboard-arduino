@@ -1,24 +1,20 @@
 # LiteBoardSetup
 
-Thư viện Arduino cho thiết bị ESP32 kết nối [LiteBoard](https://github.com/lavio-oss/liteboard). Repo này gồm 3 thư viện cần cài trong Arduino IDE trước khi biên dịch các sketch LiteBoard:
+Thư viện Arduino `LiteBoardSetup` cho thiết bị ESP32 kết nối [LiteBoard](https://github.com/lavio-oss/liteboard). Sketch LiteBoard dùng nó qua:
 
-| Thư viện | Phiên bản | Dùng để |
-|---|---|---|
-| `LiteBoardSetup` | 1.0.0 | Kết nối Wi-Fi và cấu hình MQTT cho sketch LiteBoard. Phụ thuộc `PubSubClient`. |
-| `PubSubClient` | 2.8 | Client MQTT mà các sketch LiteBoard sử dụng. |
-| `ArduinoMqttClient` | 0.1.8 | Client MQTT của Arduino, kèm theo để dùng khi cần. |
+```cpp
+#include <LiteBoardSetup.h>
+```
 
-Cấu trúc thư mục trong `libraries/` được giữ nguyên, mỗi thư viện là một thư mục độc lập theo đúng định dạng Arduino:
+Thư viện gom phần kết nối Wi-Fi và cấu hình MQTT cho sketch. Nó phụ thuộc `PubSubClient`, thư viện có sẵn trong Library Manager của Arduino IDE nên repo này không đóng gói lại.
 
 ```text
 libraries/
-├── ArduinoMqttClient/
-├── LiteBoardSetup/
-│   ├── library.properties
-│   └── src/
-│       ├── LiteBoardSetup.h
-│       └── LiteBoardSetup.cpp
-└── PubSubClient/
+└── LiteBoardSetup/
+    ├── library.properties
+    └── src/
+        ├── LiteBoardSetup.h
+        └── LiteBoardSetup.cpp
 ```
 
 ## Cài đặt trên Arduino IDE
@@ -36,9 +32,13 @@ Hướng dẫn dùng cho Arduino IDE 2.x (IDE 1.8.x làm tương tự, menu có 
 
 3. Mở **Tools → Board → Boards Manager**, tìm `esp32` và cài gói **esp32 by Espressif Systems**.
 
-Gói này cung cấp sẵn `WiFi`, `WiFiClientSecure`, `HTTPClient`, `Preferences` và `cJSON` mà các sketch LiteBoard dùng, nên bạn không cần cài thêm.
+Gói này cung cấp sẵn `WiFi` và `WiFiClientSecure` mà `LiteBoardSetup` dùng.
 
-### 2. Chép thư viện vào Sketchbook
+### 2. Cài `PubSubClient` từ Library Manager
+
+Mở **Tools → Manage Libraries…** (hoặc **Sketch → Include Library → Manage Libraries…**), tìm `PubSubClient` của **Nick O'Leary** và bấm **Install**.
+
+### 3. Chép `LiteBoardSetup` vào Sketchbook
 
 1. Trong **File → Preferences**, xem đường dẫn ở ô **Sketchbook location**. Mặc định là:
 
@@ -54,26 +54,18 @@ Gói này cung cấp sẵn `WiFi`, `WiFiClientSecure`, `HTTPClient`, `Preference
    git clone https://github.com/lavio-oss/LiteBoardSetup.git
    ```
 
-3. Chép **các thư mục bên trong `libraries/`** (`ArduinoMqttClient`, `LiteBoardSetup`, `PubSubClient`) vào thư mục `libraries` của Sketchbook. Kết quả:
+3. Chép thư mục `libraries/LiteBoardSetup` vào thư mục `libraries` của Sketchbook. Kết quả:
 
    ```text
    <Sketchbook>/libraries/LiteBoardSetup/library.properties
-   <Sketchbook>/libraries/PubSubClient/library.properties
-   <Sketchbook>/libraries/ArduinoMqttClient/library.properties
    ```
 
-   Nếu thư mục `libraries` chưa có, hãy tạo nó. Chép từng thư mục thư viện, không chép nguyên thư mục `libraries/` của repo thành một lớp lồng thêm.
+   Nếu thư mục `libraries` chưa có, hãy tạo nó. Chép thư mục `LiteBoardSetup`, không chép nguyên thư mục `libraries/` của repo thành một lớp lồng thêm.
 
 4. **Thoát hẳn và mở lại Arduino IDE** để IDE quét thư viện mới.
 
-> Nếu bạn đã cài `PubSubClient` hoặc `ArduinoMqttClient` qua Library Manager, hãy gỡ bản đó (hoặc ghi đè bằng bản trong repo này) để không có hai bản cùng tên.
+### 4. Kiểm tra thư viện đã nhận
 
-### 3. Kiểm tra thư viện đã nhận
-
-Mở **Sketch → Include Library**. Bạn phải thấy `LiteBoardSetup`, `PubSubClient` và `ArduinoMqttClient` trong phần **Contributed libraries**. Nếu thiếu thư viện nào, kiểm tra lại đường dẫn Sketchbook và cấu trúc thư mục ở bước 2.
+Mở **Sketch → Include Library**. Bạn phải thấy `LiteBoardSetup` trong phần **Contributed libraries**, và `PubSubClient` trong danh sách thư viện đã cài. Nếu thiếu, kiểm tra lại đường dẫn Sketchbook và cấu trúc thư mục ở bước 3.
 
 Sketch LiteBoard và hướng dẫn cấu hình thiết bị nằm ở repo chính [lavio-oss/liteboard](https://github.com/lavio-oss/liteboard), thư mục `ESP32/`.
-
-## Giấy phép
-
-Mỗi thư viện giữ nguyên giấy phép gốc trong thư mục của nó. `PubSubClient` theo MIT (`LICENSE.txt`), `ArduinoMqttClient` theo LGPL 2.1 (`LICENSE.txt`). `LiteBoardSetup` chưa có file giấy phép riêng.
