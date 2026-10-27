@@ -1,12 +1,12 @@
 # LiteBoardSetup
 
-Thư viện Arduino `LiteBoardSetup` cho thiết bị ESP32 kết nối [LiteBoard](https://github.com/lavio-oss/liteboard). Sketch LiteBoard dùng nó qua:
+`LiteBoardSetup` is an Arduino library for ESP32 devices that connect to [LiteBoard](https://github.com/lavio-oss/liteboard). LiteBoard sketches use it through:
 
 ```cpp
 #include <LiteBoardSetup.h>
 ```
 
-Thư viện gom phần kết nối Wi-Fi và cấu hình MQTT cho sketch. Nó phụ thuộc `PubSubClient`, thư viện có sẵn trong Library Manager của Arduino IDE nên repo này không đóng gói lại.
+The library handles the Wi-Fi connection and MQTT setup for the sketches. It depends on `PubSubClient`, which is available in the Arduino IDE Library Manager, so this repository does not bundle it.
 
 ```text
 libraries/
@@ -17,55 +17,55 @@ libraries/
         └── LiteBoardSetup.cpp
 ```
 
-## Cài đặt trên Arduino IDE
+## Installing in the Arduino IDE
 
-Hướng dẫn dùng cho Arduino IDE 2.x (IDE 1.8.x làm tương tự, menu có tên giống nhau).
+These steps are for Arduino IDE 2.x. Arduino IDE 1.8.x works the same way and uses the same menu names.
 
-### 1. Cài hỗ trợ board ESP32
+### 1. Install ESP32 board support
 
-1. Mở **File → Preferences** (macOS: **Arduino IDE → Settings**).
-2. Ở ô **Additional boards manager URLs**, thêm dòng sau rồi bấm **OK**:
+1. Open **File → Preferences** (macOS: **Arduino IDE → Settings**).
+2. In **Additional boards manager URLs**, add the following line and click **OK**:
 
    ```text
    https://espressif.github.io/arduino-esp32/package_esp32_index.json
    ```
 
-3. Mở **Tools → Board → Boards Manager**, tìm `esp32` và cài gói **esp32 by Espressif Systems**.
+3. Open **Tools → Board → Boards Manager**, search for `esp32` and install **esp32 by Espressif Systems**.
 
-Gói này cung cấp sẵn `WiFi` và `WiFiClientSecure` mà `LiteBoardSetup` dùng.
+This package provides `WiFi` and `WiFiClientSecure`, which `LiteBoardSetup` uses.
 
-### 2. Cài `PubSubClient` từ Library Manager
+### 2. Install `PubSubClient` from the Library Manager
 
-Mở **Tools → Manage Libraries…** (hoặc **Sketch → Include Library → Manage Libraries…**), tìm `PubSubClient` của **Nick O'Leary** và bấm **Install**.
+Open **Tools → Manage Libraries…** (or **Sketch → Include Library → Manage Libraries…**), search for `PubSubClient` by **Nick O'Leary** and click **Install**.
 
-### 3. Chép `LiteBoardSetup` vào Sketchbook
+### 3. Copy `LiteBoardSetup` into your sketchbook
 
-1. Trong **File → Preferences**, xem đường dẫn ở ô **Sketchbook location**. Mặc định là:
+1. In **File → Preferences**, note the **Sketchbook location**. The defaults are:
 
-   | Hệ điều hành | Đường dẫn |
+   | Operating system | Path |
    |---|---|
-   | Windows | `C:\Users\<tên bạn>\Documents\Arduino` |
+   | Windows | `C:\Users\<your name>\Documents\Arduino` |
    | macOS | `~/Documents/Arduino` |
    | Linux | `~/Arduino` |
 
-2. Tải repo này (nút **Code → Download ZIP**, giải nén) hoặc clone:
+2. Download this repository (**Code → Download ZIP**, then extract it) or clone it:
 
    ```bash
    git clone https://github.com/lavio-oss/LiteBoardSetup.git
    ```
 
-3. Chép thư mục `libraries/LiteBoardSetup` vào thư mục `libraries` của Sketchbook. Kết quả:
+3. Copy the `libraries/LiteBoardSetup` folder into the `libraries` folder of your sketchbook. The result should be:
 
    ```text
    <Sketchbook>/libraries/LiteBoardSetup/library.properties
    ```
 
-   Nếu thư mục `libraries` chưa có, hãy tạo nó. Chép thư mục `LiteBoardSetup`, không chép nguyên thư mục `libraries/` của repo thành một lớp lồng thêm.
+   Create the `libraries` folder if it does not exist. Copy the `LiteBoardSetup` folder itself; do not copy the repository's whole `libraries/` folder, which would add an extra nested level.
 
-4. **Thoát hẳn và mở lại Arduino IDE** để IDE quét thư viện mới.
+4. **Quit and reopen the Arduino IDE** so it picks up the new library.
 
-### 4. Kiểm tra thư viện đã nhận
+### 4. Check that the library is installed
 
-Mở **Sketch → Include Library**. Bạn phải thấy `LiteBoardSetup` trong phần **Contributed libraries**, và `PubSubClient` trong danh sách thư viện đã cài. Nếu thiếu, kiểm tra lại đường dẫn Sketchbook và cấu trúc thư mục ở bước 3.
+Open **Sketch → Include Library**. `LiteBoardSetup` should appear under **Contributed libraries**, and `PubSubClient` should be in the list of installed libraries. If either is missing, check the sketchbook path and the folder structure from step 3.
 
-Sketch LiteBoard và hướng dẫn cấu hình thiết bị nằm ở repo chính [lavio-oss/liteboard](https://github.com/lavio-oss/liteboard), thư mục `ESP32/`.
+The LiteBoard sketches and the device configuration guide live in the main repository, [lavio-oss/liteboard](https://github.com/lavio-oss/liteboard), in the `ESP32/` folder.
