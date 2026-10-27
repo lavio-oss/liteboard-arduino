@@ -51,7 +51,7 @@ Open **Tools → Manage Libraries…** (or **Sketch → Include Library → Mana
 2. Download this repository (**Code → Download ZIP**, then extract it) or clone it:
 
    ```bash
-   git clone https://github.com/lavio-oss/LiteBoardSetup.git
+   git clone https://github.com/lavio-oss/liteboard-arduino.git
    ```
 
 3. Copy the `libraries/LiteBoardSetup` folder into the `libraries` folder of your sketchbook. The result should be:
